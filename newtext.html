@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>hello Binated</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #bccfe4;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        main {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Simple Blog</h1>
+    </header>
+
+    <main>
+        <h2>Create a New Blog Post</h2>
+        <form id="blogForm">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required><br><br>
+
+            <label for="content">Content:</label><br>
+            <textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
+
+            <input type="submit" class="button" value="Create Post">
+        </form>
+
+        <h2>Blog Posts</h2>
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Action</th>
+            </tr>
+            <!-- Example blog posts will be inserted here dynamically using JavaScript -->
+        </table>
+    </main>
+
+    <script>
+        // JavaScript for adding new blog posts to the table
+        const blogForm = document.getElementById("blogForm");
+        const table = document.querySelector("table");
+
+        blogForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const title = document.getElementById("title").value;
+            const content = document.getElementById("content").value;
+
+            const row = table.insertRow(-1);
+            const titleCell = row.insertCell(0);
+            const contentCell = row.insertCell(1);
+            const actionCell = row.insertCell(2);
+
+            titleCell.textContent = title;
+            contentCell.textContent = content;
+
+            const deleteButton = document.createElement("button");
+            deleteButton.className = "button";
+            deleteButton.textContent = "Delete";
+            deleteButton.addEventListener("click", function () {
+                table.deleteRow(row.rowIndex);
+            });
+            actionCell.appendChild(deleteButton);
+
+            // Clear the form fields
+            blogForm.reset();
+        });
+    </script>
+</body>
+</html>
